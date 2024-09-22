@@ -61,8 +61,8 @@ export default function Home() {
                     </div>
                     
                     <div className="videoControls">
-                        <button onClick={handlePrev} className="controlButton">Previous</button>
-                        <button onClick={handleNext} className="controlButton">Next</button>
+                        <button onClick={handlePrev} className="bg-slate-600 rounded text-zinc-300 p-2">Previous</button>
+                        <button onClick={handleNext} className="bg-slate-600 rounded text-zinc-300 p-2">Next</button>
                     </div>
                 </div>
             ) : (

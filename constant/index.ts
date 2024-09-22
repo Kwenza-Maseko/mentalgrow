@@ -31,20 +31,20 @@ export const footer = [
     {
         id: "2",
         imageUrl: "/messages.png",
-        name: "message",
-        url: 'massage'
+        name: "live chats",
+        url: '/massage'
     },
     {
         id: "3",
         imageUrl: "/inbox.png",
-        name: "inbox",
-        url: 'folder'
+        name: "folder",
+        url: '/folder'
     },
     {
         id: "4",
         imageUrl: "/music.png",
         name: "music",
-        url: 'music'
+        url: '/music'
     },
 ];
 
@@ -81,10 +81,10 @@ export const therapist = [
     {
         id: "1",
         imageUrl: "/therapist.webp",
-        name: "Josh Mustang",
+        name: "Josh Mastang",
         occipation: "Mental Thrapist",
         location: "255 Mugrave Road | Durban | 4001",
-        email: "josh@therapist.com",
+        email: "kwenzangcamane@gmail.com",
         status: "Available"
     },
     {

@@ -18,6 +18,7 @@ import { toast } from "@/components/ui/use-toast";
 import { useUser } from '@clerk/nextjs';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/firebase';
+import { useRouter } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -39,9 +40,11 @@ const FormSchema = z.object({
   therapist: z.string().nonempty("Therapist is required."), // Validation for the new field
 });
 
-const therapists = ['Josh Mustang', 'Bongani Masinga', 'Bayanda Mustang', 'Nokwethemba'];
+const therapists = ['Josh Mastang', 'Bongani Masinga', 'Bayanda Mustang' ];
 
 export default function InputForm() {
+  
+  const route = useRouter();
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -79,6 +82,7 @@ export default function InputForm() {
           ),
         });
         form.reset();
+        route.push("/waiting");
       } catch (error) {
         console.error('Error submitting form: ', error);
         toast({

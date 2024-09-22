@@ -3,8 +3,7 @@ import Link from "next/link";
 import { items } from "@/constant";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-
-const adminEmails = ["kwenzangcamane@gmail.com"]; 
+import { toast } from "@/components/ui/use-toast";
 
 export default async function Home() {
   const { userId } = auth();
@@ -14,11 +13,6 @@ export default async function Home() {
     redirect("/sign-in");
   }
 
-  const userEmail = user.primaryEmailAddress?.emailAddress;
-
-  if (userEmail && adminEmails.includes(userEmail)) {
-    redirect("/therapistadmin");
-  }
   return (
     <div className="background-bg ">
       <div className="content grid_display">

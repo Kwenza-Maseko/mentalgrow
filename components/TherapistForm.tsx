@@ -107,21 +107,20 @@ export default function TherapistForm() {
     if (existingTherapist) {
         return (
             <div>
-                <div>
-                    <h1 className="h1 font-bold">Therapy Information
-                    </h1>
-                </div>
                 <div className="therapist p-3">
-                    <div className="flex gap-1 mb-2">
+                    <div className="flex flex-col gap-1 mb-2">
 
                         {existingTherapist.userImage && (
-                            <img
-                                src={existingTherapist.userImage}
-                                alt="Therapist Image"
-                                width={40}
-                                height={40}
-                                className="rounded-full"
-                            />
+                            <div className="flex justify-center items-center mb-5">
+                                <img
+                                    src={existingTherapist.userImage}
+                                    alt="Therapist Image"
+                                    width={100}
+                                    height={100}
+                                    className="rounded-full"
+                                />
+                            </div>
+
                         )}
 
                         <div>
@@ -143,11 +142,12 @@ export default function TherapistForm() {
                         {existingTherapist.location}
                     </div>
                 </div>
-                <div className="appont mt-3 p-2 therapist">
-                    <Link href={"/scheduledAppointments"}>
-                        Check for Appointment
-                    </Link>
-                </div>
+
+                <Link href={"/scheduledAppointments"}>
+                    <div className="appont mt-3 p-2 rounded w-fit text-zinc-200 bg-slate-600">
+                        Get Appointments
+                    </div>
+                </Link>
             </div>
         );
     }
