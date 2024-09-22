@@ -31,7 +31,7 @@ export default async function Navbar() {
                     </Link>
                 </div>
 
-                <div className='flex gap-3 items-center'>
+                <div className='flex gap-2 items-center'>
                     {!userId ? (
                         <>
                             <Link href={"/sign-in"}>
@@ -44,8 +44,17 @@ export default async function Navbar() {
                     ) : (
                         <>
                             {userEmail && adminEmails.includes(userEmail) && (
-                                <Link href={"/therapistadmin"} className='border border-slate-500 rounded-full p-2 text-zinc-900'>
-                                    <li>Get Bookings</li>
+                                <Link href={"/therapistadmin"} className='border border-slate-500 rounded-full p-2 text-zinc-900 flex gap-1 items-center'>
+                                    <li className='hidden md:block'>Get Bookings</li>
+
+
+                                    <Image
+                                        src={"/list.jpg"}
+                                        width={25}
+                                        height={25}
+                                        alt='logo'
+                                        className='logo rounded-full'
+                                    />
                                 </Link>
                             )}
 
