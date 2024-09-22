@@ -100,7 +100,7 @@ const Chat = () => {
                     </div>
                 ))}
             </div>
-            <div className="input-container">
+            <div className="input-container pb-[1rem]">
                 <input
                     type="text"
                     value={newMessage}

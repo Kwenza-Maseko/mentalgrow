@@ -14,7 +14,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="background-bg ">
+    <div className="background-bg h-max pb-[5rem]">
       <div className="content grid_display">
         <div>
           <Image

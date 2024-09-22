@@ -12,7 +12,7 @@ const Footer = () => {
     const path = usePathname();
 
     return (
-        <div className="flex justify-between bg-white px-2">
+        <div className="flex justify-between bg-white px-2 fixed bottom-0 right-0 left-0">
             {!userId ? (
                 <>
                     {footer.map((item) => (

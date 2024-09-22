@@ -16,7 +16,7 @@ const page = async () => {
     }
     return (
         <>
-            <div className="p-3 hdhd"><GoBackButton />
+            <div className="p-3 hdhd pb-[5rem]"><GoBackButton />
                 <div>
                     <h1 className="h1 font-bold">Book an Appointment
                     </h1>
