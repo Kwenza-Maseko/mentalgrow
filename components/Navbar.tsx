@@ -5,6 +5,7 @@ import { UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
 
+
 const adminEmails = ["kwenzangcamane@gmail.com", "bayandamustang@gmail.com", "bmasinga32@gmail.com"];
 
 export default async function Navbar() {
@@ -43,16 +44,30 @@ export default async function Navbar() {
                     ) : (
                         <>
                             {userEmail && adminEmails.includes(userEmail) && (
-                                <Link href={"/therapistadmin"} className='bg-slate-600 rounded p-2 text-zinc-300'>
+                                <Link href={"/therapistadmin"} className='border border-slate-500 rounded-full p-2 text-zinc-900'>
                                     <li>Get Bookings</li>
                                 </Link>
                             )}
-                            <Link href={"/profile"}>
-                                <li>{user?.firstName}</li>
-                            </Link>
-                            <li className='flex items-center'>
-                                <UserButton />
-                            </li>
+
+                            <div className="bg-slate-600 p-1 rounded-full flex gap-2 items-center px-2 pr-3 text-zinc-200 shadow-lg">
+                                <li className='flex items-center'>
+                                    <UserButton />
+                                </li>
+                                <Link href={"/profile"}>
+                                    <li>{user?.firstName} {user?.lastName}
+
+
+                                        {userEmail && adminEmails.includes(userEmail) && (
+                                            <span className='text-zinc-300 text-xs'>
+                                                <br />
+                                                Therapist
+                                            </span>
+                                        )}
+
+
+                                    </li>
+                                </Link>
+                            </div>
                         </>
                     )}
                 </div>
