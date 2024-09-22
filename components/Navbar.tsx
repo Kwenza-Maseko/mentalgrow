@@ -15,7 +15,7 @@ export default async function Navbar() {
 
     return (
         <div className='navbar'>
-            <ul className='flex justify-between py-4 px-6'>
+            <ul className='flex justify-between p-3'>
                 <div>
                     <Link href={"/"} className='flex gap-1 items-center'>
                         <li>
