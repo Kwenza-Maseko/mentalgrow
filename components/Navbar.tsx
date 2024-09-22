@@ -48,7 +48,7 @@ export default async function Navbar() {
                                 </Link>
                             )}
                             <Link href={"/profile"}>
-                                <li>Profile</li>
+                                <li>{user?.firstName}</li>
                             </Link>
                             <li className='flex items-center'>
                                 <UserButton />
