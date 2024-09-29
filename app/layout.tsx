@@ -9,6 +9,7 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton"
+import SideBar from "@/components/SideBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -45,12 +46,16 @@ export default function RootLayout({
                 </div>
               </div>
             </div>
-
           </ClerkLoading>
           <ClerkLoaded>
-            <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col h-screen">
-                <Navbar />{children}<Footer />
+            <div className="mx-auto">
+              <div className="flex">
+                <div>
+                  <SideBar />
+                </div>
+                <div className="flex flex-col h-screen w-full">
+                  <Navbar />{children}<Footer />
+                </div>
               </div>
             </div>
           </ClerkLoaded>

@@ -444,7 +444,6 @@ h1 {
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 83.2vh;
   padding: 20px;
 }
 
@@ -562,4 +561,23 @@ button:hover:enabled {
 }
 .skeleton{
   background-color: rgb(146, 146, 146);
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+  cursor: grabbing;
+}
+.sidebar{
+  border-right: 3px solid #c0c1c2;
 }

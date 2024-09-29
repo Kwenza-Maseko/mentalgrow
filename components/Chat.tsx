@@ -74,7 +74,7 @@ const Chat = () => {
     };
 
     return (
-        <div className="chat-container">
+        <div className="chat-container h-[81.2dvh] sm:h-[90.2dvh]">
             <div className="messages">
                 {messages.map((message) => (
                     <div key={message.id} className={`message ${message.userId === user?.id ? 'message-sent' : 'message-received'}`}>
@@ -100,7 +100,7 @@ const Chat = () => {
                     </div>
                 ))}
             </div>
-            <div className="input-container pb-[1rem]">
+            <div className="input-container p-[1rem] md:pb-0">
                 <input
                     type="text"
                     value={newMessage}

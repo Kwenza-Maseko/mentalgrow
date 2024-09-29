@@ -1,62 +1,72 @@
 'use client';
 
-import Image from "next/image";
 import Link from "next/link";
-import { footer } from "@/constant";
 import { useAuth } from "@clerk/nextjs";
 import React from "react";
 import { usePathname } from "next/navigation";
+import { GoHome } from "@react-icons/all-files/go/GoHome";
+import { IoChatbubblesOutline } from "@react-icons/all-files/io5/IoChatbubblesOutline";
+import { IoFolderOpenOutline } from "@react-icons/all-files/io5/IoFolderOpenOutline";
+import { RiMusic2Line } from "@react-icons/all-files/ri/RiMusic2Line";
+
+const icons = [
+    { component: GoHome, label: 'Home', url: "/" },
+    { component: IoChatbubblesOutline, label: 'Community', url: "/massage" },
+    { component: IoFolderOpenOutline, label: 'folder', url: "/folder" },
+    { component: RiMusic2Line, label: 'music', url: "/music" },
+];
 
 const Footer = () => {
     const { userId } = useAuth();
     const path = usePathname();
 
     return (
-        <div className="flex justify-between bg-white px-2 fixed bottom-0 right-0 left-0">
+        <div className="flex justify-between bg-white px-3 py-2 fixed bottom-0 right-0 left-0 md:hidden z-50">
             {!userId ? (
                 <>
-                    {footer.map((item) => (
-                        <React.Fragment key={item.id}>
-                            {item.name === "message" ? (
-                                <div className="hidden" />
-                            ) : (
-                                <Link href={item.url} passHref>
-                                    <div className="itemsss">
-                                    <div className={`${item.url === path ? 'bg-slate-600' : 'hover:bg-zinc-600'}"bg-zinc-600"`}>
-                                            <Image
-                                                src={item.imageUrl}
-                                                width={30}
-                                                height={30}
-                                                alt="itm"
-                                                className="icons"
-                                            />
+                     {
+                        icons.map((iconObj, index) => {
+                            const IconComponent = iconObj.component;
+                            return (
+                                < React.Fragment key={index} >
+                                    <Link href={iconObj.url} passHref>
+                                        <div className="mb-1">
+                                            <div className={`flex gap-2 items-center p-1 rounded capitalize ${iconObj.url === path ? 'bg-slate-500 text-zinc-200' : 'hover:bg-slate-500 hover:text-zinc-200 '}`}>
+                                                <IconComponent className={` ${iconObj.url === path ? 'text-zinc-200' : 'hover:text-zinc-200 '}`} style={{ fontSize: '21px' }} />
+                                                {iconObj.label}
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            )}
-                        </React.Fragment>
-                    ))}
+                                    </Link>
+                                </React.Fragment>
+
+
+                            );
+                        })
+                    }
+
                 </>
             ) : (
                 <>
-                    {footer.map((item) => (
-                        <React.Fragment key={item.id}>
-                            <Link href={item.url} passHref>
-                                <div className="itemsss">
-                                    <div className={` p-2 flex flex-col justify-center items-center rounded capitalize ${item.url === path ? 'bg-slate-600 text-zinc-200' : 'hover:bg-slate-600 hover:text-zinc-200 '}`}>
-                                        <Image
-                                            src={item.imageUrl}
-                                            width={30}
-                                            height={30}
-                                            alt="itm"
-                                            className="icons"
-                                        />
-                                    {item.name}
-                                    </div>
-                                </div>
-                            </Link>
-                        </React.Fragment>
-                    ))}
+                    {
+                        icons.map((iconObj, index) => {
+                            const IconComponent = iconObj.component;
+                            return (
+                                < React.Fragment key={index} >
+                                    <Link href={iconObj.url} passHref>
+                                        <div className="mb-1">
+                                            <div className={`flex flex-col gap-2 items-center p-1 rounded capitalize ${iconObj.url === path ? 'bg-slate-500 text-zinc-200' : 'hover:bg-slate-500 hover:text-zinc-200 '}`}>
+                                                <IconComponent className={` ${iconObj.url === path ? 'text-zinc-200' : 'hover:text-zinc-200 '}`} style={{ fontSize: '21px' }} />
+                                                {iconObj.label}
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </React.Fragment>
+
+
+                            );
+                        })
+                    }
+
                 </>
             )}
         </div>
