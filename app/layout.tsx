@@ -10,7 +10,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton"
 import SideBar from "@/components/SideBar";
-
+import { SignedIn } from "@clerk/nextjs";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -50,11 +50,16 @@ export default function RootLayout({
           <ClerkLoaded>
             <div className="mx-auto">
               <div className="flex">
-                <div>
-                  <SideBar />
-                </div>
-                <div className="flex flex-col h-screen w-full">
-                  <Navbar />{children}<Footer />
+                <SignedIn>
+                  <div>
+                    <SideBar />
+                  </div>
+                </SignedIn>
+                <div className="flex flex-col h-screen w-full 1">
+                  <Navbar />{children}
+                  <SignedIn>
+                    <Footer />
+                  </SignedIn>
                 </div>
               </div>
             </div>
