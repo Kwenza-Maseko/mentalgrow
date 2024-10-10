@@ -107,109 +107,113 @@ export default function InputForm() {
   }
 
   return (
-
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full h-full sm:w-1/3 space-y-3 mt-5 mb-5">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="text" placeholder="Username" {...field}
-                  value={user?.username?.length ? user.username : ""} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="email" placeholder="Email address" {...field}
-                  value={user.emailAddresses[0].emailAddress} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  type="tel"
-                  placeholder="Phone Number"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="date"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  type="date"
-                  placeholder="Select a date"
-                  min={today}
-                  max={oneMonthFromToday}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea placeholder="Description..." {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="therapist"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Select a Therapist</FormLabel>
-              <FormControl>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a therapist" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {therapists.map((therapist) => (
-                      <SelectItem key={therapist} value={therapist}>
-                        {therapist}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-              <p className="font-bold">Note: Check for available Therapists near your location.</p>
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Make an Appointment</Button>
-      </form>
-    </Form>
+    <>
+      {!isSignedIn ? (
+        <p>Please sign in to book an appointment.</p>
+      ) : (
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="w-full h-full sm:w-1/3 space-y-3 mt-5 mb-5">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input type="text" placeholder="Username" {...field}
+                      value={user?.username?.length ? user.username : ""} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input type="email" placeholder="Email address" {...field}
+                      value={user.emailAddresses[0].emailAddress} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="phone"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="tel"
+                      placeholder="Phone Number"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="date"
+                      placeholder="Select a date"
+                      min={today}
+                      max={oneMonthFromToday}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Textarea placeholder="Description..." {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="therapist"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Select a Therapist</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a therapist" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {therapists.map((therapist) => (
+                          <SelectItem key={therapist} value={therapist}>
+                            {therapist}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                  <p className="font-bold">Note: Check for available Therapists near your location.</p>
+                </FormItem>
+              )}
+            />
+            <Button type="submit">Make an Appointment</Button>
+          </form>
+        </Form>
+      )}
+    </>
   );
 }

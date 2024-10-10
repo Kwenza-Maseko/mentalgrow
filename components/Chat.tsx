@@ -166,33 +166,35 @@ const Chat = () => {
 
                 {/* Replying to */}
                 {replyingTo && (
-                    <div className="replying-to flex gap-5 bg-zinc-300 rounded-md p-2 w-fit">
-                        <div>
-                            Replying to
-                            <div className='flex gap-1 items-center mb-2 mt-1'>
-                                <div>
-                                    <img
-                                        src={replyingTo.userImage || "/logo.jpg"}
-                                        alt="User Avatar"
-                                        className="user-avatar rounded-full"
-                                        width={30}
-                                        height={30}
-                                    />
+                    <div className='w-full bg-[#060627] fixed p-2 left-0 bottom-[160px] bottom-[145px] md:bottom-[80px] md:left-[210px] '>
+                        <div className="replying-to flex gap-5 bg-[#6d0d8a] rounded-md p-2 w-fit ">
+                            <div>
+                                Replying to
+                                <div className='flex gap-1 items-center mb-2 mt-1'>
+                                    <div>
+                                        <img
+                                            src={replyingTo.userImage || "/logo.jpg"}
+                                            alt="User Avatar"
+                                            className="user-avatar rounded-full"
+                                            width={30}
+                                            height={30}
+                                        />
+                                    </div>
+                                    <div className='font-bold'>{replyingTo.username} <br />
+                                        <span className='font-normal'> {replyingTo.email}</span></div>
                                 </div>
-                                <div className='font-bold'>{replyingTo.username} <br />
-                                    <span className='font-normal'> {replyingTo.email}</span></div>
+                                &quot;{replyingTo.text}&quot;
                             </div>
-                            "{replyingTo.text}"
-                        </div>
-                        <div>
-                            <button onClick={() => setReplyingTo(null)}><IoClose /></button>
+                            <div>
+                                <button onClick={() => setReplyingTo(null)}><IoClose /></button>
+                            </div>
                         </div>
                     </div>
                 )}
 
             </div>
             {/* Message input */}
-            <div className="input-container p-[1rem] md:pb-0">
+            <div className="input-container bg-[#060627] p-[1rem] sm:flex absolute right-0 left-0 bottom-[80px] sm:bottom-[10px] md:relative">
                 <textarea
                     value={newMessage}
                     onChange={(e) => setNewMessage(e.target.value)}
