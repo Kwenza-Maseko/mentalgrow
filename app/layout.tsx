@@ -51,12 +51,15 @@ export default function RootLayout({
             <div className="mx-auto">
               <div className="flex">
                 <SignedIn>
-                  <div>
+                  <div className=" hidden lg:block  w-[234px]">
                     <SideBar />
                   </div>
+                  <div className="">
+                  </div>
                 </SignedIn>
-                <div className="flex flex-col h-screen w-full 1">
-                  <Navbar />{children}
+                <div className="flex flex-col h-svh overflow-y-hidden w-full lg:pb-0  pb-[5rem]">
+                  <div className="md:hidden"><Navbar /></div>
+                  <div className="h-full overflow-y-scroll">{children}</div>
                   <SignedIn>
                     <Footer />
                   </SignedIn>

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -13,12 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select"; 
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
 import { useUser } from '@clerk/nextjs';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/firebase';
 import { useRouter } from "next/navigation";
+import { Textarea } from "@/components/ui/textarea";
+
 
 interface FormData {
   username: string;
@@ -40,24 +42,28 @@ const FormSchema = z.object({
   therapist: z.string().nonempty("Therapist is required."), // Validation for the new field
 });
 
-const therapists = ['Josh Mastang', 'Bongani Masinga', 'Bayanda Mustang' ];
+const therapists = ['Josh Mastang', 'Bongani Masinga', 'Bayanda Mustang'];
 
 export default function InputForm() {
-  
+
   const route = useRouter();
+  const { isSignedIn, user } = useUser();
+
+  if (!isSignedIn) {
+    return <p>Please sign in to book an appointment.</p>;
+  }
+
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      username: "",
+      username: user?.username || "",
       date: "",
-      phone: "",
-      email: "",
+      phone: "", 
+      email: user?.emailAddresses?.[0]?.emailAddress || "",
       description: "",
       therapist: "",
     },
   });
-
-  const { user } = useUser();
 
   const today = new Date().toISOString().split('T')[0];
   const oneMonthFromToday = new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0];
@@ -88,7 +94,7 @@ export default function InputForm() {
         toast({
           title: "Error booking appointment",
           description: "There was an issue booking your appointment. Please try again.",
-          variant: "destructive", 
+          variant: "destructive",
         });
       }
     } else {
@@ -101,20 +107,52 @@ export default function InputForm() {
   }
 
   return (
+
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6 mt-5 mb-5">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full h-full sm:w-1/3 space-y-3 mt-5 mb-5">
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Username" {...field} />
+                <Input type="text" placeholder="Username" {...field}
+                  value={user?.username?.length ? user.username : ""} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input type="email" placeholder="Email address" {...field}
+                  value={user.emailAddresses[0].emailAddress} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="phone"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input
+                  type="tel"
+                  placeholder="Phone Number"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         <FormField
           control={form.control}
           name="date"
@@ -135,35 +173,11 @@ export default function InputForm() {
         />
         <FormField
           control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="tel" placeholder="Phone number" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input type="email" placeholder="Email address" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
           name="description"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="Description..." {...field} />
+                <Textarea placeholder="Description..." {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -176,17 +190,21 @@ export default function InputForm() {
             <FormItem>
               <FormLabel>Select a Therapist</FormLabel>
               <FormControl>
-                <select {...field} className="form-select">
-                  <option value="">Select a therapist</option>
-                  {therapists.map((therapist) => (
-                    <option key={therapist} value={therapist}>
-                      {therapist}
-                    </option>
-                  ))}
-                </select>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a therapist" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {therapists.map((therapist) => (
+                      <SelectItem key={therapist} value={therapist}>
+                        {therapist}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
-              <p className="font-bold">Note: Check for available Therapist near your Location</p>
+              <p className="font-bold">Note: Check for available Therapists near your location.</p>
             </FormItem>
           )}
         />

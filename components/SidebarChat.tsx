@@ -65,7 +65,7 @@ const SidebarChat = () => {
     return (
         <div className="mt-2">
             <h2 className='font-bold mb-3'>Community Interacters</h2>
-            <div className="messages text-slate-700 h-[360px] overflow-y-scroll">
+            <div className="messages h-[360px] overflow-y-scroll">
                 {messages.map((message) => (
                     <div key={message.id} className="">
                         <div className="">
@@ -82,8 +82,8 @@ const SidebarChat = () => {
                                     />
                                 </div>
                                 <div>
-                                    <div className="font-bold text-slate-700 capitalize">@{message.username}</div>
-                                    <div className="text-slate-500">{truncateMessage(message.text)}</div>
+                                    <div className="font-semibold">@{message.username}</div>
+                                    <div className="text-zinc-400">{truncateMessage(message.text)}</div>
                                 </div>
                             </div>
                         </div>

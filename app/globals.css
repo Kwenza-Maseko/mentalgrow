@@ -60,18 +60,15 @@
 }
 
 body {
-  background-color: rgba(240, 239, 239, 0.89);
-  color: rgb(27, 27, 27);
-  font-size: 9pt;
+  background-color: rgb(5, 3, 39);
+  color: rgb(197, 197, 197);
+  font-size: 10pt;
 }
 
 .navbar {
-  background-image: linear-gradient(to top, #fff 80%, transparent);
-  background: rgba(255, 255, 255, 0.952);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 2.5 px solid #505050;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.993);
 }
 
 .logo_name {
@@ -86,30 +83,52 @@ body {
   overflow-y: scroll;
 }
 
-.screen{
+.screen {
   height: 86svh;
   width: 100%;
   overflow-y: scroll;
 }
 
-.background-bg::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('/bg.jpg') no-repeat center center/cover;
-  filter: blur(10px);
-  z-index: -1;
-}
-
 .content {
   position: relative;
-  z-index: 1;
-  color: black;
+  color: rgb(211, 211, 211);
   padding: 20px;
-  background-image: linear-gradient(to bottom, #fff 40%, transparent 110%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: fit-content;
+}
+
+.sunrise {
+  background-image: url("/sunrise.jpg");
+}
+
+.afternoon {
+  background-image: url("/day.jpg");
+}
+
+.evening {
+  background-image: url("/sunset.jpg");
+}
+
+.night {
+  background-image: url("/night.jpg");
+}
+
+.bg-img-banner {
+  background-image: url("/banner.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.content::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom, transparent, rgb(5, 3, 39));
 }
 
 .grid_display {
@@ -118,23 +137,16 @@ body {
   gap: 20px;
 }
 
-@media (max-width: 900px){
-  .grid_display{
+@media (max-width: 900px) {
+  .grid_display {
     display: block;
   }
 }
+
 .hero_img {
   width: 100%;
   object-fit: cover;
   border-radius: 8px;
-}
-
-.get_started_btn {
-  border-radius: 5px;
-  border: 1.7px solid #030433;
-  background-color: #030433;
-  color: #ffffff;
-  letter-spacing: .5px;
 }
 
 .gallary {
@@ -189,67 +201,48 @@ body {
   font-size: 15px;
 }
 
-/* CustomVideoPlayer.module.css */
-.videoContainer {
-    position: relative;
-    background-color: #000;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.videoPlayer {
-    width: 100%;
-    height: auto;
-    display: block;
-}
 
 .controls {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    right: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 5px;
-    padding: 10px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 5px;
+  padding: 10px;
 }
 
 .playPauseButton {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.3s;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
 .playPauseButton:hover {
-    color: #ccc;
+  color: #ccc;
 }
 
 .progressBarContainer {
-    flex: 1;
-    height: 5px;
-    background: #444;
-    margin: 0 10px;
-    border-radius: 5px;
-    overflow: hidden;
+  flex: 1;
+  height: 5px;
+  background: #444;
+  margin: 0 10px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .progressBar {
-    height: 100%;
-    background: #f00;
-    transition: width 0.1s;
+  height: 100%;
+  background: #f00;
+  transition: width 0.1s;
 }
 
-.videoTitle {
-    color: white;
-    font-size: 14px;
-    margin-left: 10px;
-}
 
 /* CustomVideoPlayer.module.css */
 .videoContainer {
@@ -311,21 +304,13 @@ body {
   color: white;
   font-size: 14px;
   margin-left: 10px;
- text-transform: capitalize;
+  text-transform: capitalize;
 }
 
-
-/* Home.module.css */
-/* Home.module.css */
-/* app/page.tsx */
 .container {
   padding: 20px;
-  background-color: #f7f7f7;
-  font-family: 'Poppins', sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  height: 86vh;
 }
 
 h1 {
@@ -351,7 +336,8 @@ h1 {
 .videoWrapper {
   width: 100%;
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
+  /* 16:9 aspect ratio */
   height: 0;
   margin-top: 20px;
 }
@@ -385,7 +371,8 @@ h1 {
 .controlButton {
   padding: 5px 20px;
   border-radius: 10px;
-  color: rgb(31, 30, 30);cursor: pointer;
+  color: rgb(31, 30, 30);
+  cursor: pointer;
   transition: background-color 0.3s ease;
   font-size: 10pt;
   border: 1px solid #333;
@@ -395,21 +382,6 @@ h1 {
 
 /* styles.css or appointments.module.css */
 
-.appointments-container {
-  padding: 20px;
-}
-
-.appointments-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.appointment {
-  padding: 10px;
-  background-color: #bfcedb;
-  border-radius: 10px;
-}
 
 .appointment-header {
   display: flex;
@@ -426,7 +398,9 @@ h1 {
   flex-direction: column;
 }
 
-.user-name, .user-email, .user-username {
+.user-name,
+.user-email,
+.user-username {
   font-weight: bold;
 }
 
@@ -439,12 +413,13 @@ h1 {
   font-size: 0.8rem;
   color: #888;
 }
+
 /* Add these styles to your CSS file */
 
 .chat-container {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
 }
 
 .messages {
@@ -458,56 +433,58 @@ h1 {
 
 .message {
   padding: 10px;
-  border-radius: 10px;
   color: #fff;
+  border-radius: 20px;
   position: relative;
   max-width: 80%;
 }
 
 .message-sent {
-  background-color: #09b309; /* Blue for sent messages */
+  background-color: #6d0d8a;
+  /* Blue for sent messages */
   align-self: flex-end;
+  border-bottom-right-radius: 0px;
 }
 
 .message-received {
-  background-color: #afb0b1; /* Light blue for received messages */
+  background-color: #505152;
+  /* Light blue for received messages */
   align-self: flex-start;
+  border-bottom-left-radius: 0px;
 }
 
 .input-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
-input[type="text"] {
+textarea {
   flex: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 30px;
+  border: 1px solid #999898;
+  border-radius: 25px;
+  color: rgb(255, 255, 255);
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  resize: none;
 }
 
-input[type="text"]:disabled {
+textarea:disabled {
   background-color: #e9ecef;
 }
 
 button {
   padding: 7px;
   border: none;
-  background-color: #0dd649;
-  color: white;
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:disabled {
-  background-color: #a5ec9c; 
+  background-color: #a5ec9c;
   cursor: not-allowed;
-}
-
-button:hover:enabled {
-  background-color: #00f549;
 }
 
 .timestamp {
@@ -521,22 +498,25 @@ button:hover:enabled {
 }
 
 .m_header {
-  background-color: #00f54aa4;
+  background-color: #6d0d8ad2;
   padding: 8px;
-  border-radius: 5px;
+  border-radius: 12px;
   border-bottom: 1px solid #ccc;
 }
-.therapist{
+
+.therapist {
   background-color: #dcdfdda4;
   width: fit-content;
   border-radius: 10px;
 }
+
 .available,
-.fully-booked{
+.fully-booked {
   padding: 5px 10px;
   border-radius: 10px;
   color: #e6e6e6;
 }
+
 .available {
   background-color: green;
 }
@@ -544,40 +524,61 @@ button:hover:enabled {
 .fully-booked {
   background-color: red;
 }
-.form-select{
-  padding:10px;
+
+.form-select {
+  padding: 10px;
   width: 100%;
 }
-.back{
+
+.back {
   background-color: #030433;
-  width: 30px; 
+  width: 30px;
   height: fit-content;
 }
-.hdhd{
+
+.hdhd {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #e0e0e0;
 }
-.skeleton{
+
+.skeleton {
   background-color: rgb(146, 146, 146);
 }
 
 ::-webkit-scrollbar {
   width: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
   border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #888;
   border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
   cursor: grabbing;
 }
-.sidebar{
-  border-right: 3px solid #c0c1c2;
+
+.sidebar {
+  border-right: 2px solid #191953;
+  background-color: #02021d;
+}
+
+.imagess {
+  width: 100%;
+}
+
+.icon-label:hover .icon-container {
+  background-color: #5b5b80c4;
+  color: #fff;
+}
+.icon-label:hover {
+  color: #fff;
 }

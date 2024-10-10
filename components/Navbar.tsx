@@ -5,7 +5,6 @@ import { UserButton } from '@clerk/nextjs';
 import Image from 'next/image';
 import { redirect } from "next/navigation";
 
-
 const adminEmails = ["kwenzangcamane@gmail.com", "bayandamustang@gmail.com", "bmasinga32@gmail.com"];
 
 export default async function Navbar() {
@@ -13,21 +12,24 @@ export default async function Navbar() {
     const user = await currentUser();
     const userEmail = user?.primaryEmailAddress?.emailAddress;
 
+    const truncateMessage = (text: string) => {
+        return text.length > 10 ? text.slice(0, 9) + '...' : text;
+    };
+
     return (
         <div className='navbar'>
-            <ul className='flex justify-between p-3'>
+            <ul className='flex justify-between items-center p-3'>
                 <div>
                     <Link href={"/"} className='flex gap-1 items-center'>
                         <li>
                             <Image
-                                src={"/logo.jpg"}
-                                width={40}
-                                height={40}
+                                src={"/MentalGrow.png"}
+                                width={80}
+                                height={150}
                                 alt='logo'
-                                className='logo rounded-full'
+                                className=''
                             />
                         </li>
-                        <p className='logo_name hidden sm:block'>MentalGrow</p>
                     </Link>
                 </div>
 
@@ -46,8 +48,6 @@ export default async function Navbar() {
                             {userEmail && adminEmails.includes(userEmail) && (
                                 <Link href={"/therapistadmin"} className='border border-slate-500 rounded-full p-2 text-zinc-900 flex gap-1 items-center'>
                                     <li className='hidden md:block'>Get Bookings</li>
-
-
                                     <Image
                                         src={"/list.jpg"}
                                         width={25}
@@ -58,22 +58,31 @@ export default async function Navbar() {
                                 </Link>
                             )}
 
-                            <div className="bg-slate-600 p-1 rounded-full flex gap-2 items-center px-2 pr-3 text-zinc-200 shadow-lg">
-                                <li className='flex items-center'>
+                            <div className="flex gap-2 items-center px-[5px] pr-3 text-white">
+                                <li className='flex items-center p-1 rounded-full bg-zinc-400'>
                                     <UserButton />
                                 </li>
                                 <Link href={"/profile"}>
-                                    <li>{user?.firstName} {user?.lastName}
+                                    <li className='font-semibold'>
+                                        {user?.firstName && user?.lastName ? (
+                                            <>
+                                                {truncateMessage(`${user.firstName} ${user.lastName}`)}
+                                            </>
+                                        ) : (
+                                            "@unknown"
+                                        )}
 
-
-                                        {userEmail && adminEmails.includes(userEmail) && (
-                                            <span className='text-zinc-300 text-xs'>
+                                        {userEmail && adminEmails.includes(userEmail) ? (
+                                            <span className='font-light text-xs'>
                                                 <br />
                                                 Therapist
                                             </span>
+                                        ) : (
+                                            <span className='font-light text-xs'>
+                                                <br />
+                                                {user?.username ? `@${truncateMessage(user.username)}` : "@guest"}
+                                            </span>
                                         )}
-
-
                                     </li>
                                 </Link>
                             </div>
