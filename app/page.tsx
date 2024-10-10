@@ -50,13 +50,13 @@ export default async function Home() {
                 <p className="text-zinc-100">MentalGrow is an innovative app designed to support mental well-being by offering a comprehensive suite of features. Users can conveniently book therapy sessions with qualified therapists, ensuring they receive personalized and professional support. Additionally, the app provides a streaming service for meditation sounds, helping users to relax and meditate effectively.</p>
               </div>
               <div className="flex justify-center items-center gap-5 text-zinc-600">
-                <button className="rounded-lg flex  text-zinc-100  gap-2 items-center px-3 bg-[#5f5f80] border-[2px] border-solid border-[#6d0d8a10]">
+                <Link href={"/folder"} className="rounded-lg flex  text-zinc-100  gap-2 items-center p-3 bg-[#5f5f80] border-[2px] border-solid border-[#6d0d8a10]">
                   <FaCalendar className="text-[14pt]" /> Appointments
-                </button>
+                </Link>
 
-                <button className="rounded-lg flex gap-2 text-zinc-100 items-center px-3 border-[2px] border-solid border-zinc-100 text-[#6d0d8a]">
+                <Link href={"/music"}  className="rounded-lg flex gap-2 text-zinc-100 items-center p-3 border-[2px] border-solid border-zinc-100 text-[#6d0d8a]">
                   <BsMusicNoteBeamed className="text-[14pt]" /> Sounds
-                </button>
+                </Link>
               </div>
             </div>
           </div>
