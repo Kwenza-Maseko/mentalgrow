@@ -21,14 +21,13 @@ import { db } from '@/firebase';
 import { useRouter } from "next/navigation";
 import { Textarea } from "@/components/ui/textarea";
 
-
 interface FormData {
   username: string;
   date: string;
   phone: string;
   email: string;
   description: string;
-  therapist: string; // New field for therapist selection
+  therapist: string;
 }
 
 const FormSchema = z.object({
@@ -39,7 +38,7 @@ const FormSchema = z.object({
   phone: z.string().min(10, "Phone number must be at least 10 digits."),
   email: z.string().email("Invalid email address."),
   description: z.string().nonempty("Description is required."),
-  therapist: z.string().nonempty("Therapist is required."), // Validation for the new field
+  therapist: z.string().nonempty("Therapist is required."),
 });
 
 const therapists = ['Josh Mastang', 'Bongani Masinga', 'Bayanda Mustang'];
@@ -49,16 +48,13 @@ export default function InputForm() {
   const route = useRouter();
   const { isSignedIn, user } = useUser();
 
-  if (!isSignedIn) {
-    return <p>Please sign in to book an appointment.</p>;
-  }
-
+  // Always call `useForm` at the top, outside any conditional logic
   const form = useForm<FormData>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       username: user?.username || "",
       date: "",
-      phone: "", 
+      phone: "",
       email: user?.emailAddresses?.[0]?.emailAddress || "",
       description: "",
       therapist: "",
@@ -107,7 +103,7 @@ export default function InputForm() {
   }
 
   return (
-    <>
+    <div>
       {!isSignedIn ? (
         <p>Please sign in to book an appointment.</p>
       ) : (
@@ -119,8 +115,7 @@ export default function InputForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type="text" placeholder="Username" {...field}
-                      value={user?.username?.length ? user.username : ""} />
+                    <Input type="text" placeholder="Username" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,8 +127,7 @@ export default function InputForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input type="email" placeholder="Email address" {...field}
-                      value={user.emailAddresses[0].emailAddress} />
+                    <Input type="email" placeholder="Email address" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -214,6 +208,6 @@ export default function InputForm() {
           </form>
         </Form>
       )}
-    </>
+    </div>
   );
 }
