@@ -11,6 +11,7 @@ import { FaReply } from "@react-icons/all-files/fa/FaReply";
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import { IoMdSend } from "@react-icons/all-files/io/IoMdSend";
 import { FaTruckLoading } from "@react-icons/all-files/fa/FaTruckLoading";
+import { FaAngleDoubleDown } from "@react-icons/all-files/fa/FaAngleDoubleDown";
 
 interface Message {
     id: string;
@@ -38,8 +39,12 @@ const Chat = () => {
     let lastDisplayedDate: string = '';
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        messagesEndRef.current?.scrollIntoView({ behavior: "instant" });
     }, [messages]);
+
+    const handleScroll = (() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    });
 
     useEffect(() => {
         const q = query(collection(db, 'messages'), orderBy('timestamp'));
@@ -180,6 +185,12 @@ const Chat = () => {
                                     </div>
                                 </div>
 
+                                <div ref={messagesEndRef} />
+
+                                <div className="fixed right-0 bottom-[150px] z-10 p-2 rounded-full bg-[#383868] cursor-pointer"
+                                    onClick={handleScroll}>
+                                    <FaAngleDoubleDown />
+                                </div>
                             </div>
                         );
                     })}
@@ -237,9 +248,7 @@ const Chat = () => {
                     }
                 </button>
             </div>
-            <div ref={messagesEndRef} />
         </div>
-
     );
 };
 
