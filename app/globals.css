@@ -415,13 +415,6 @@ h1 {
 }
 
 /* Add these styles to your CSS file */
-
-.chat-container {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
 .messages {
   flex: 1;
   display: flex;

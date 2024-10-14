@@ -34,6 +34,13 @@ const Chat = () => {
     const [replyingTo, setReplyingTo] = useState<Message | null>(null);
     const [text, setText] = useState<string>('');
     const textareaRef = useRef<HTMLTextAreaElement>(null);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    let lastDisplayedDate: string = '';
+
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
     useEffect(() => {
         const q = query(collection(db, 'messages'), orderBy('timestamp'));
         const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -87,81 +94,96 @@ const Chat = () => {
         setReplyingTo(message);
     };
 
-
     return (
-        <div className="chat-container h-full">
+        <div className="p-3 h-full">
             <div className="h-[550px] overflow-y-scroll">
-                <div className="messages">
-                    {messages.map((message) => (
-                        <div key={message.id} className={`message ${message.userId === user?.id ? 'message-sent' : 'message-received'}`}>
-                            {/* If the message is a reply, show the original message preview */}
-                            {message.parentMessageId && (
-                                <div className="reply-preview bg-zinc-300 p-2 mb-2 rounded-lg">
-                                    <div className="text-xs text-gray-500">Replying to:</div>
-                                    <div className="flex gap-1 items-center mt-1 mb-2 rounded-md p-2 bg-zinc-400">
-                                        <Image src={
-                                            messages.find(
-                                                (parentMsg) => parentMsg.id === message.parentMessageId
-                                            )?.userImage || "Unknown"}
-                                            alt="User Avatar"
-                                            className="user-avatar rounded-full"
-                                            width={25}
-                                            height={25}
-                                        />
-                                        <div className='text-zinc-600 font-bold'>
-                                            @{
-                                                messages.find(
-                                                    (parentMsg) => parentMsg.id === message.parentMessageId
-                                                )?.username || "Unknown"
-                                            }
-                                        </div>
+                <div className="">
+                    {messages.map((message) => {
+                        const messageDate = message?.formattedTimestamp?.split(',')[0];
+                        const messageYear = message?.formattedTimestamp?.split(',')[1]; // Extract date part
+                        const combine = messageDate + ", " + messageYear;
+                        const isNewDate = messageDate !== lastDisplayedDate;
 
+                        if (isNewDate && messageDate) {
+                            lastDisplayedDate = messageDate;
+                        }
 
-
+                        return (
+                            <div key={message.id}>
+                                {isNewDate && messageDate && (
+                                    <div className="text-center mt-8 mb-6 text-gray-500">
+                                        <span className="bg-[#383868] text-zinc-300 text-[9pt] px-2 py-1 rounded-lg">
+                                            {combine}
+                                        </span>
                                     </div>
-                                    <div className="text-gray-600">
-                                        {
-                                            messages.find(
-                                                (parentMsg) => parentMsg.id === message.parentMessageId
-                                            )?.text || "Original message not found"
-                                        }
+                                )}
+
+                                <div className="messages">
+                                    <div className={`message ${message.userId === user?.id ? 'message-sent' : 'message-received'}`}>
+                                        {message.parentMessageId && (
+                                            <div className="reply-preview bg-zinc-300 p-2 mb-2 rounded-lg">
+                                                <div className="text-xs text-gray-500">Replying to:</div>
+                                                <div className="flex gap-1 items-center mt-1 mb-2 rounded-md p-2 bg-zinc-400">
+                                                    <Image
+                                                        src={messages.find((parentMsg) => parentMsg.id === message.parentMessageId)?.userImage || "Unknown"}
+                                                        alt="User Avatar"
+                                                        className="user-avatar rounded-full"
+                                                        width={25}
+                                                        height={25}
+                                                    />
+                                                    <div className='text-zinc-600'>
+                                                        <p className='font-bold'>
+                                                            {messages.find((parentMsg) => parentMsg.id === message.parentMessageId)?.name || "Unknown"}
+                                                        </p>
+                                                        <p className='text-[9pt]'>
+                                                            @{messages.find((parentMsg) => parentMsg.id === message.parentMessageId)?.username || "Unknown"}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div className="text-gray-600">
+                                                    {messages.find((parentMsg) => parentMsg.id === message.parentMessageId)?.text || "Original message not found"}
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <div className="message-header">
+                                            <div className={`flex items-center ${message.userId === user?.id ? 'hidden' : 'block'}`}>
+                                                <div className="flex gap-2 m_header mb-4 w-full">
+                                                    <div>
+                                                        <img
+                                                            src={message.userImage || "logo.jpg"}
+                                                            alt="User Avatar"
+                                                            className="user-avatar rounded-full"
+                                                            width={35}
+                                                            height={35}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <div className="name font-bold">{message.name}</div>
+                                                        <div className="text-[9pt]">@{message.username}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>{message.text}</div>
+                                        <div className="timestamp text-[7pt]">{message?.formattedTimestamp?.split(',')[2]}</div>
+
+                                        {/* Reply button */}
+                                        <div className={`flex items-center ${message.userId === user?.id ? 'hidden' : 'block'}`}>
+                                            <button onClick={() => handleReply(message)} className='bg-transparent rounded-md'>
+                                                <FaReply />
+                                            </button>
+                                            <div className='bg-zinc-400 rounded-md w-full px-2 py-1 m-2'>
+                                                Reply to @{message.username}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            )}
 
-                            <div className="message-header">
-                                <div className={`flex items-center ${message.userId === user?.id ? 'hidden' : 'block'}`}>
-                                    <div className="flex gap-2 m_header mb-4">
-                                        <div>
-                                            <img
-                                                src={message.userImage}
-                                                alt="User Avatar"
-                                                className="user-avatar rounded-full"
-                                                width={35}
-                                                height={35}
-                                            />
-                                        </div>
-                                        <div>
-                                            <div className="name font-bold">@{message.username}</div>
-                                            <div className="text-[9pt]">{message.email}</div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
-                            <div className="">{message.text}</div>
-                            <div className="timestamp text-[7pt]">{message.formattedTimestamp}</div>
+                        );
+                    })}
 
-                            {/* Reply button */}
-                            <div className={`flex items-center ${message.userId === user?.id ? 'hidden' : 'block'}`}>
-                                <button onClick={() => handleReply(message)} className='bg-transparent rounded-md'>
-                                    <FaReply />
-                                </button>
-                                <div className='bg-zinc-400 rounded-md w-full px-2 py-1 m-2'>
-                                    Reply to @{message.username}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
                 </div>
 
                 {/* Replying to */}
@@ -215,6 +237,7 @@ const Chat = () => {
                     }
                 </button>
             </div>
+            <div ref={messagesEndRef} />
         </div>
 
     );
