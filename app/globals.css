@@ -75,7 +75,9 @@ body {
   font-size: 15px;
   font-weight: bold;
 }
-
+.nav{
+  border-bottom: 2px solid rgb(12, 9, 56);
+}
 .background-bg {
   position: relative;
   height: 100vh;
@@ -427,7 +429,7 @@ h1 {
 .message {
   padding: 10px;
   color: #fff;
-  border-radius: 20px;
+  border-radius: 10px;
   position: relative;
   max-width: 80%;
 }
@@ -455,12 +457,18 @@ h1 {
 textarea {
   flex: 1;
   border: 1px solid #999898;
-  border-radius: 25px;
+  border-radius: 20px;
   color: rgb(255, 255, 255);
-  padding: 0 10px;
+  padding: 0 15px;
   display: flex;
   align-items: center;
-  resize: none;
+  max-height: 100px;
+  line-height: "1.5";
+  resize: vertical;
+}
+
+textarea:focus{
+  border: none;
 }
 
 textarea:disabled {

@@ -1,51 +1,42 @@
-'use client';
-
+"use client";
 import { SignIn, useUser } from "@clerk/nextjs";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { db } from "@/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
-const adminEmails = ["kwenzangcamane@gmail.com", "vuno14kuhle@gmail.com"]; 
-
-const Page = () => {
+const SignInPage = () => {
   const { user, isLoaded } = useUser();
   const router = useRouter();
 
-  useEffect(() => {
-    console.log("useEffect triggered");
-    console.log("isLoaded:", isLoaded); 
-    console.log("User object:", user); 
-
-    if (isLoaded) {
-      console.log("Checking user authentication");
-      
+  {/*  useEffect(() => {
+    const addUserToFirestoreIfNotExists = async () => {
       if (user) {
-        console.log("User is loaded and authenticated");
-        
-        const userEmail = user.primaryEmailAddress?.emailAddress;
-        console.log("User email:", userEmail);
+        const userRef = doc(db, "users", user.id); // Reference to user's document
+        const userSnap = await getDoc(userRef);
 
-        const isAdmin = adminEmails.some(email => email === userEmail);
-        
-        if (userEmail && isAdmin) {
-          console.log("User is an admin. Redirecting to /therapistadmin");
-          router.push("/therapistadmin");
-        } else {
-          console.log("User is not an admin. Redirecting to /");
-          router.push("/"); 
+        if (userSnap.exists()) {
+          await setDoc(userRef, {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            imageUrl: user.imageUrl,
+            userId: user.id,
+          });
         }
-      } else {
-        console.log("User object is null or undefined");
       }
-    } else {
-      console.log("User not loaded or not authenticated");
+    };
+
+    if (isLoaded && user) {
+      addUserToFirestoreIfNotExists();
     }
   }, [user, isLoaded, router]);
 
+ */}
   return (
     <div className="flex items-center justify-center screen">
-      <SignIn afterSignInUrl="/" />
+      <SignIn afterSignOutUrl={"/"} />
     </div>
   );
 };
 
-export default Page;
+export default SignInPage;

@@ -233,11 +233,7 @@ const Chat = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Type your message here..."
                     disabled={isSending}
-                    className='bg-zinc-700 w-full'
-                    style={{
-                        lineHeight: '1.5',
-                        resize: 'none',
-                    }}
+                    className='bg-zinc-700 w-full textarea_messages'
                 />
                 <button
                     className='bg-[#6d0d8a]'

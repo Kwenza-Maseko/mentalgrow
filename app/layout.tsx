@@ -11,6 +11,8 @@ import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton"
 import SideBar from "@/components/SideBar";
 import { SignedIn } from "@clerk/nextjs";
+import { shadesOfPurple } from "@clerk/themes";
+import InstantMessages from "@/components/InstantMessages";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,7 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      appearance={{
+        baseTheme: shadesOfPurple,
+      }}
+    >
       <html lang="en">
         <body className={inter.className}>
           <ClerkLoading>
@@ -49,6 +55,7 @@ export default function RootLayout({
           </ClerkLoading>
           <ClerkLoaded>
             <div className="mx-auto">
+              <InstantMessages />
               <div className="flex">
                 <SignedIn>
                   <div className=" hidden lg:block  w-[234px]">

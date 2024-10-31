@@ -1,31 +1,25 @@
-import mongoose, { Mongoose } from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 
-const MONGODB_URL =process.env.MONGODB_URL!;
+let isConnected = false;
 
-interface MongooseConn {
-    conn: Mongoose | null;
-    promise: Promise<Mongoose> | null;
-}
+export const connectDB = async () => {
+    mongoose.set("strictQuery", true);
 
-let cached: MongooseConn = (global as any).mongoose;
+    if (isConnected) {
+        console.log("MongoDB already connected");
+        return;
+    }
 
-if(!cached){
-    cached = (global as any).mongoose ={
-        conn: null,
-        promise: null
-    };
-}
+    try {
+        await mongoose.connect(process.env.MONGODB_URL || "", {
+            dbName: "mentalgrow",
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        } as ConnectOptions);
 
-export const connect = async () =>{
-    if(!cached.conn) return cached.conn;
-
-    cached.promise = cached.promise || mongoose.connect(MONGODB_URL, {
-        dbName: "mentalgrow",
-        bufferCommands:false,
-        connectTimeoutMS: 3000,
-    });
-
-    cached.conn = await cached.promise;
-
-    return cached.conn;
+        isConnected = true;
+        console.log("MongoDB is connected");
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error);
+    }
 };
