@@ -3,20 +3,11 @@ import {
   createRouteMatcher
 } from '@clerk/nextjs/server';
 
-const isProtectedRoute = createRouteMatcher([
-  '/music(.*)',
-  '/waiting(.*)', 
-  '/massage(.*)',
-  '/scheduledAppointments(.*)',
-  '/folder(.*)',
-  '/building(.*)',
-  '/therapist(.*)',
-  '/therapistadmin(.*)',
-  '/appointment(.*)',
-]);
+
+const isPublicRoute = createRouteMatcher(['/sign-in(.*)', '/sign-up(.*)', '/api/webhooks'])
 
 export default clerkMiddleware((auth, req) => {
-  if (isProtectedRoute(req)) auth().protect();
+  if (!isPublicRoute(req)) auth().protect();
 });
 
 export const config = {

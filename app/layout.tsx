@@ -12,7 +12,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import SideBar from "@/components/SideBar";
 import { SignedIn } from "@clerk/nextjs";
 import { shadesOfPurple } from "@clerk/themes";
-import InstantMessages from "@/components/InstantMessages";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -34,7 +34,6 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <ClerkLoading>
-
             <div className="flex items-center space-x-4 p-3">
               <Skeleton className="h-12 w-12 rounded-full skeleton" />
               <div className="space-y-2">
@@ -55,7 +54,6 @@ export default function RootLayout({
           </ClerkLoading>
           <ClerkLoaded>
             <div className="mx-auto">
-              <InstantMessages />
               <div className="flex">
                 <SignedIn>
                   <div className=" hidden lg:block  w-[234px]">
